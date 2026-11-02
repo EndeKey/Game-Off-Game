@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://dnaxj1shvqa4x"]
+
+[ext_resource type="Script" uid="uid://jwfc6606uvul" path="res://Scripts/player.gd" id="1_rpqav"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_12j5o"]
+height = 1.7988281
+
+[node name="CharacterBody3D" type="CharacterBody3D" unique_id=932941082]
+script = ExtResource("1_rpqav")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=734795565]
+shape = SubResource("CapsuleShape3D_12j5o")
+
+[node name="Neck" type="Node3D" parent="." unique_id=1886126630]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5548871, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Neck" unique_id=913624935]

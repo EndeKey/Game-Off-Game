@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://brgssn1hj364h"]
+
+[ext_resource type="PackedScene" uid="uid://dnaxj1shvqa4x" path="res://Scenes/Player.tscn" id="1_r150o"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_r150o"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_idj7w"]
+sky_material = SubResource("ProceduralSkyMaterial_r150o")
+
+[sub_resource type="Environment" id="Environment_kln2b"]
+background_mode = 2
+sky = SubResource("Sky_idj7w")
+glow_enabled = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_12j5o"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_idj7w"]
+data = PackedVector3Array(1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, -1, 0, -1, 1, 0, -1)
+
+[node name="Node3D" type="Node3D" unique_id=1809722822]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1990846281]
+environment = SubResource("Environment_kln2b")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=255175666]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1077415638]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+mesh = SubResource("PlaneMesh_12j5o")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D" unique_id=1295884333]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D" unique_id=1566825956]
+shape = SubResource("ConcavePolygonShape3D_idj7w")
+
+[node name="CharacterBody3D" parent="." unique_id=932941082 instance=ExtResource("1_r150o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
