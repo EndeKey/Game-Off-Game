@@ -5,6 +5,72 @@
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_12j5o"]
 height = 1.7988281
 
+[sub_resource type="BoxMesh" id="BoxMesh_12j5o"]
+size = Vector3(1, 0.22705078, 0.2562256)
+
+[sub_resource type="Animation" id="Animation_rpqav"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.28844976, -0.2294864, -0.56806797)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, -1.5969939)]
+}
+
+[sub_resource type="Animation" id="Animation_kyqiw"]
+resource_name = "snort"
+length = 2.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.33333325, 1.1, 1.9, 2.2333333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, -0.786, -0.568), Vector3(0, -0.786, -0.568), Vector3(0, -0.335, -0.568), Vector3(-0.697, -0.335, -0.568), Vector3(-0.697, -0.734, -0.02)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gntrk"]
+_data = {
+&"RESET": SubResource("Animation_rpqav"),
+&"snort": SubResource("Animation_kyqiw")
+}
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_12j5o"]
+
 [node name="CharacterBody3D" type="CharacterBody3D" unique_id=932941082]
 script = ExtResource("1_rpqav")
 
@@ -15,3 +81,19 @@ shape = SubResource("CapsuleShape3D_12j5o")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5548871, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Neck" unique_id=913624935]
+fov = 54.59856
+
+[node name="hand" type="MeshInstance3D" parent="Neck" unique_id=1945593501]
+transform = Transform3D(-0.0261946, 0.99965686, 0, -0.99965686, -0.0261946, 0, 0, 0, 1, -0.28844976, -0.2294864, -0.56806797)
+mesh = SubResource("BoxMesh_12j5o")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Neck/hand" unique_id=329659734]
+libraries/ = SubResource("AnimationLibrary_gntrk")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=155776555]
+mesh = SubResource("CapsuleMesh_12j5o")
+
+[node name="Cocainetimer" type="Timer" parent="." unique_id=1268964108]
+
+[connection signal="animation_finished" from="Neck/hand/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="timeout" from="Cocainetimer" to="." method="_on_timer_timeout"]

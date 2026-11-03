@@ -1,12 +1,16 @@
 extends CharacterBody3D
 
-
-const SPEED = 5.0
-const JUMP_VELOCITY = 4.5
+var checkpoint : Vector3 = Vector3(0,1,0)
+var SPEED = 5.0
+var JUMP_VELOCITY = 4.5
 @onready var neck := $Neck
 @onready var camera := $Neck/Camera3D
+@onready var hand := $Neck/hand
+@onready var animationplayer := $Neck/hand/AnimationPlayer
+@onready var ishandvisible = false
 
 func _physics_process(delta: float) -> void:
+	hand.visible = ishandvisible
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -25,6 +29,12 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.z = move_toward(velocity.z, 0, SPEED)
+	if Input.is_action_just_pressed("Reset"):
+		global_position = checkpoint
+	if Input.is_action_just_pressed("Snort"):
+		ishandvisible = true
+		animationplayer.play("snort")
+		
 
 	move_and_slide()
 
@@ -36,6 +46,20 @@ func _unhandled_input(event):
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		if event is InputEventMouseMotion:
-			neck.rotate_y(-event.relative.x * 0.005)
+			neck.rotate_y(-event.relative.x * 0.002)
 			camera.rotate_x(-event.relative.y * 0.003)
 			camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-50), deg_to_rad(80))
+
+
+
+func _on_animation_player_animation_finished(snort):
+	ishandvisible = false
+	$Cocainetimer.start(10)
+	SPEED = 10
+	JUMP_VELOCITY = 9
+
+
+
+func _on_timer_timeout() -> void:
+	SPEED = 5
+	JUMP_VELOCITY = 4.5
