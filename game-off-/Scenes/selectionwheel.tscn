@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://cu8u8mwkkanl3"]
+
+[ext_resource type="Script" uid="uid://hr75jsfvqjob" path="res://inventory.gd" id="1_hxam8"]
+
+[node name="Selectionwheel" type="Control" unique_id=714759724]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_hxam8")
+bg_color = Color(0.14462528, 0.16039908, 0.14209524, 1)
+line_color = Color(0.4817894, 0.48178953, 0.4817894, 1)
+outer_radius = 384
+inner_radius = 96
+line_width = 8

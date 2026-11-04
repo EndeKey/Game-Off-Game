@@ -8,6 +8,8 @@ var JUMP_VELOCITY = 4.5
 @onready var hand := $Neck/hand
 @onready var animationplayer := $Neck/hand/AnimationPlayer
 @onready var ishandvisible = false
+var flourjumps : int = 0
+var flourdoses : int = 2
 
 func _physics_process(delta: float) -> void:
 	hand.visible = ishandvisible
@@ -18,6 +20,12 @@ func _physics_process(delta: float) -> void:
 	# Handle jump.
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
+		if flourjumps != 0:
+			flourjumps -= 1
+			JUMP_VELOCITY = 4.5
+			
+	$Control/Label2.text = str(flourdoses)
+	$Control/Label3.text = str(flourjumps)
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
@@ -31,10 +39,14 @@ func _physics_process(delta: float) -> void:
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 	if Input.is_action_just_pressed("Reset"):
 		global_position = checkpoint
-	if Input.is_action_just_pressed("Snort"):
+	if Input.is_action_just_pressed("Snort") && flourdoses != 0:
 		ishandvisible = true
 		animationplayer.play("snort")
-		
+		flourjumps += 1
+		flourdoses -= 1
+	if flourjumps != 0:
+		JUMP_VELOCITY = 9
+	
 
 	move_and_slide()
 
@@ -54,12 +66,6 @@ func _unhandled_input(event):
 
 func _on_animation_player_animation_finished(snort):
 	ishandvisible = false
-	$Cocainetimer.start(10)
-	SPEED = 10
-	JUMP_VELOCITY = 9
-
-
-
-func _on_timer_timeout() -> void:
-	SPEED = 5
-	JUMP_VELOCITY = 4.5
+#	$Cocainetimer.start(10)
+#	SPEED = 10
+#	JUMP_VELOCITY = 9

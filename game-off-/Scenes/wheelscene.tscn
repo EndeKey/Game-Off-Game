@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://c3k8ge65vrj0v"]
+
+[ext_resource type="Script" uid="uid://bbrc2cvt1q3ot" path="res://Scripts/UI.gd" id="1_ikm88"]
+[ext_resource type="PackedScene" uid="uid://cu8u8mwkkanl3" path="res://Scenes/selectionwheel.tscn" id="2_newsv"]
+
+[node name="wheelscene" type="Node" unique_id=2037938458]
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1278715284]
+script = ExtResource("1_ikm88")
+
+[node name="Label" type="Label" parent="UI" unique_id=1380670951]
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="Selectionwheel" parent="UI" unique_id=714759724 instance=ExtResource("2_newsv")]
+options = [null, null, null, null, null, null]

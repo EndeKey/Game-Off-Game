@@ -95,5 +95,32 @@ mesh = SubResource("CapsuleMesh_12j5o")
 
 [node name="Cocainetimer" type="Timer" parent="." unique_id=1268964108]
 
+[node name="Control" type="Control" parent="." unique_id=505175101]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="Control" unique_id=1333916206]
+layout_mode = 0
+offset_right = 137.0
+offset_bottom = 48.0
+text = "flour jumps
+flour doses"
+
+[node name="Label2" type="Label" parent="Control" unique_id=697133296]
+layout_mode = 0
+offset_left = 115.0
+offset_top = 27.0
+offset_right = 155.0
+offset_bottom = 50.0
+
+[node name="Label3" type="Label" parent="Control" unique_id=84684678]
+layout_mode = 0
+offset_left = 115.0
+offset_top = 2.0
+offset_right = 155.0
+offset_bottom = 25.0
+
 [connection signal="animation_finished" from="Neck/hand/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="timeout" from="Cocainetimer" to="." method="_on_timer_timeout"]

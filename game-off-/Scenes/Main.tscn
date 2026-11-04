@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://c6hj2x7ibyvn" path="res://Assets/grass.png" id="1_idj7w"]
 [ext_resource type="PackedScene" uid="uid://dnaxj1shvqa4x" path="res://Scenes/Player.tscn" id="1_r150o"]
+[ext_resource type="PackedScene" uid="uid://c3k8ge65vrj0v" path="res://Scenes/wheelscene.tscn" id="3_kln2b"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_r150o"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -75,3 +76,5 @@ mesh = SubResource("BoxMesh_12j5o")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D4/StaticBody3D" unique_id=1921751825]
 shape = SubResource("BoxShape3D_rgh2o")
+
+[node name="wheelscene" parent="." unique_id=2037938458 instance=ExtResource("3_kln2b")]
