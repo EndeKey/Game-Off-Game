@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cu8u8mwkkanl3"]
 
-[ext_resource type="Script" uid="uid://hr75jsfvqjob" path="res://inventory.gd" id="1_hxam8"]
+[ext_resource type="Script" uid="uid://hr75jsfvqjob" path="res://Scripts/inventory.gd" id="1_hxam8"]
 
 [node name="Selectionwheel" type="Control" unique_id=714759724]
 layout_mode = 3

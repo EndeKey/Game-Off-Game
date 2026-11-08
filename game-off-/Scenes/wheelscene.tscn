@@ -2,6 +2,43 @@
 
 [ext_resource type="Script" uid="uid://bbrc2cvt1q3ot" path="res://Scripts/UI.gd" id="1_ikm88"]
 [ext_resource type="PackedScene" uid="uid://cu8u8mwkkanl3" path="res://Scenes/selectionwheel.tscn" id="2_newsv"]
+[ext_resource type="Script" uid="uid://b4r6c3yci8uw" path="res://Scripts/Wheel_option.gd" id="3_ctej5"]
+[ext_resource type="Texture2D" uid="uid://jgfia0p0rq48" path="res://Assets/not drugs.png" id="4_i6c5x"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ikm88"]
+atlas = ExtResource("4_i6c5x")
+region = Rect2(0, 0, 64, 64)
+script = ExtResource("3_ctej5")
+name = "Nothing"
+metadata/_custom_type_script = "uid://b4r6c3yci8uw"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ctej5"]
+atlas = ExtResource("4_i6c5x")
+region = Rect2(64, 0, 64, 64)
+script = ExtResource("3_ctej5")
+name = "Cocaine"
+metadata/_custom_type_script = "uid://b4r6c3yci8uw"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i6c5x"]
+atlas = ExtResource("4_i6c5x")
+region = Rect2(128, 0, 64, 64)
+script = ExtResource("3_ctej5")
+name = "Shrooms"
+metadata/_custom_type_script = "uid://b4r6c3yci8uw"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d8otr"]
+atlas = ExtResource("4_i6c5x")
+region = Rect2(192, 0, 64, 64)
+script = ExtResource("3_ctej5")
+name = "LSD"
+metadata/_custom_type_script = "uid://b4r6c3yci8uw"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lkicb"]
+atlas = ExtResource("4_i6c5x")
+region = Rect2(256, 0, 64, 64)
+script = ExtResource("3_ctej5")
+name = "Speedball"
+metadata/_custom_type_script = "uid://b4r6c3yci8uw"
 
 [node name="wheelscene" type="Node" unique_id=2037938458]
 
@@ -13,4 +50,5 @@ offset_right = 40.0
 offset_bottom = 23.0
 
 [node name="Selectionwheel" parent="UI" unique_id=714759724 instance=ExtResource("2_newsv")]
-options = [null, null, null, null, null, null]
+visible = false
+options = Array[ExtResource("3_ctej5")]([SubResource("AtlasTexture_ikm88"), SubResource("AtlasTexture_ctej5"), SubResource("AtlasTexture_i6c5x"), SubResource("AtlasTexture_d8otr"), SubResource("AtlasTexture_lkicb")])
