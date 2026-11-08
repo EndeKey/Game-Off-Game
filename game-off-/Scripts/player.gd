@@ -3,6 +3,7 @@ extends CharacterBody3D
 var checkpoint : Vector3 = Vector3(0,1,0)
 var SPEED = 5.0
 var JUMP_VELOCITY = 4.5
+@onready var inventory = $UI/Selectionwheel.select
 @onready var neck := $Neck
 @onready var camera := $Neck/Camera3D
 @onready var hand := $Neck/hand
@@ -39,11 +40,15 @@ func _physics_process(delta: float) -> void:
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 	if Input.is_action_just_pressed("Reset"):
 		global_position = checkpoint
-	if Input.is_action_just_pressed("Snort") && flourdoses != 0:
-		ishandvisible = true
-		animationplayer.play("snort")
-		flourjumps += 1
-		flourdoses -= 1
+	if Input.is_action_just_pressed("Snort"):
+		if inventory == "Nothing":
+			pass
+		if inventory == "Cocaine" && flourdoses != 0:
+			ishandvisible = true
+			animationplayer.play("snort")
+			flourjumps += 1
+			flourdoses -= 1
+		
 	if flourjumps != 0:
 		JUMP_VELOCITY = 9
 	

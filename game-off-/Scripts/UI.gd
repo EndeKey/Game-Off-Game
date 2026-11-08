@@ -10,5 +10,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("Select"):
 		$Selectionwheel.show()
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	elif Input.is_action_just_released("Select"):
-		$Selectionwheel.hide()
+		var tool = $Selectionwheel.Close()
+		$Label.text = "Player equipped:" + tool

@@ -7,35 +7,35 @@
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ikm88"]
 atlas = ExtResource("4_i6c5x")
-region = Rect2(0, 0, 64, 64)
+region = Rect2(0, 0, 128, 128)
 script = ExtResource("3_ctej5")
 name = "Nothing"
 metadata/_custom_type_script = "uid://b4r6c3yci8uw"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ctej5"]
 atlas = ExtResource("4_i6c5x")
-region = Rect2(64, 0, 64, 64)
+region = Rect2(128, 0, 128, 128)
 script = ExtResource("3_ctej5")
 name = "Cocaine"
 metadata/_custom_type_script = "uid://b4r6c3yci8uw"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_i6c5x"]
 atlas = ExtResource("4_i6c5x")
-region = Rect2(128, 0, 64, 64)
+region = Rect2(256, 0, 128, 128)
 script = ExtResource("3_ctej5")
 name = "Shrooms"
 metadata/_custom_type_script = "uid://b4r6c3yci8uw"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d8otr"]
 atlas = ExtResource("4_i6c5x")
-region = Rect2(192, 0, 64, 64)
+region = Rect2(386, 0, 128, 128)
 script = ExtResource("3_ctej5")
 name = "LSD"
 metadata/_custom_type_script = "uid://b4r6c3yci8uw"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lkicb"]
 atlas = ExtResource("4_i6c5x")
-region = Rect2(256, 0, 64, 64)
+region = Rect2(512, 0, 128, 128)
 script = ExtResource("3_ctej5")
 name = "Speedball"
 metadata/_custom_type_script = "uid://b4r6c3yci8uw"
@@ -46,9 +46,14 @@ metadata/_custom_type_script = "uid://b4r6c3yci8uw"
 script = ExtResource("1_ikm88")
 
 [node name="Label" type="Label" parent="UI" unique_id=1380670951]
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = 2.0
+offset_top = 1022.0
+offset_right = 256.0
+offset_bottom = 1084.0
 
 [node name="Selectionwheel" parent="UI" unique_id=714759724 instance=ExtResource("2_newsv")]
 visible = false
+bg_color = Color(0.2901961, 0.25490198, 0.16470589, 1)
+line_color = Color(0.11858138, 0.11858139, 0.11858136, 1)
+highlight = Color(0.37249938, 0.32940444, 0.21934879, 1)
 options = Array[ExtResource("3_ctej5")]([SubResource("AtlasTexture_ikm88"), SubResource("AtlasTexture_ctej5"), SubResource("AtlasTexture_i6c5x"), SubResource("AtlasTexture_d8otr"), SubResource("AtlasTexture_lkicb")])

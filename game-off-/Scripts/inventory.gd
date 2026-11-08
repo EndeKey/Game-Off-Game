@@ -1,15 +1,21 @@
 @tool
 extends Control
-
-const SPRITE_SIZE = Vector2(64, 64)
+const SPRITE_SIZE = Vector2(256,256)
 
 @export var bg_color : Color
 @export var line_color : Color
+@export var highlight : Color
 
 @export var outer_radius : int = 256
 @export var inner_radius : int = 64
 @export var line_width : int = 4
 @export var options : Array[wheeloptions]
+var select = 0
+
+func Close():
+	hide()
+	
+	return options[select].name
 
 # Called when the node enters the scene tree for the first time.
 func _draw() -> void:
@@ -30,7 +36,10 @@ func _draw() -> void:
 				line_width,
 				true
 			)
-			
+		
+		if select == 0:
+			draw_circle(Vector2.ZERO,inner_radius,highlight)
+		
 		draw_texture_rect_region(
 			options[0].atlas,
 			Rect2(offset, SPRITE_SIZE),
@@ -43,6 +52,23 @@ func _draw() -> void:
 			var mid_rads = ((start_rads + end_rads) / 2) * -1
 			var radius_mid = (inner_radius + outer_radius) / 2
 			
+			if select == i:
+				var points_per_arc = 32
+				var points_inner = PackedVector2Array()
+				var points_outer = PackedVector2Array()
+				
+				for j in range(points_per_arc+1):
+					var angle = start_rads + j * (end_rads - start_rads)  / points_per_arc
+					points_inner.append(inner_radius * Vector2.from_angle(TAU-angle))
+					points_outer.append(outer_radius * Vector2.from_angle(TAU-angle))
+				
+				points_outer.reverse()
+				draw_polygon(
+					points_inner + points_outer,
+					PackedColorArray([highlight]),
+					
+				)
+			
 			var draw_pos = radius_mid * Vector2.from_angle(mid_rads) + offset
 			draw_texture_rect_region(
 				options[i].atlas,
@@ -53,4 +79,14 @@ func _draw() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	var mouse_pos = get_local_mouse_position()
+	var mouse_rad = mouse_pos.length()
+	
+	if mouse_rad < inner_radius:
+		select = 0
+	else:
+		var mouse_rads = fposmod(mouse_pos.angle() * -1, TAU)
+		select = ceil((mouse_rads / TAU) * (len(options) - 1))
+	
+	
 	queue_redraw()
