@@ -3,7 +3,7 @@ extends CharacterBody3D
 var checkpoint : Vector3 = Vector3(0,1,0)
 var SPEED = 5.0
 var JUMP_VELOCITY = 4.5
-@onready var inventory = $UI/Selectionwheel.select
+@onready var inventory := $"../wheelscene/UI/Selectionwheel"
 @onready var neck := $Neck
 @onready var camera := $Neck/Camera3D
 @onready var hand := $Neck/hand
@@ -21,12 +21,12 @@ func _physics_process(delta: float) -> void:
 	# Handle jump.
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
-		if flourjumps != 0:
-			flourjumps -= 1
+		if JUMP_VELOCITY != 4.5:
 			JUMP_VELOCITY = 4.5
 			
+		print(inventory.select)
 	$Control/Label2.text = str(flourdoses)
-	$Control/Label3.text = str(flourjumps)
+	$Control/Label3.text = str(JUMP_VELOCITY)
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
@@ -40,17 +40,17 @@ func _physics_process(delta: float) -> void:
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 	if Input.is_action_just_pressed("Reset"):
 		global_position = checkpoint
+		flourdoses = 2
 	if Input.is_action_just_pressed("Snort"):
-		if inventory == "Nothing":
+		if inventory.options[inventory.select].name == "Nothing":
 			pass
-		if inventory == "Cocaine" && flourdoses != 0:
+		if inventory.options[inventory.select].name == "Cocaine" && flourdoses > 0:
 			ishandvisible = true
 			animationplayer.play("snort")
-			flourjumps += 1
 			flourdoses -= 1
+			JUMP_VELOCITY += 4.5
 		
-	if flourjumps != 0:
-		JUMP_VELOCITY = 9
+		
 	
 
 	move_and_slide()

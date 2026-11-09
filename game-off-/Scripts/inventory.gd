@@ -10,7 +10,7 @@ const SPRITE_SIZE = Vector2(256,256)
 @export var inner_radius : int = 64
 @export var line_width : int = 4
 @export var options : Array[wheeloptions]
-var select = 0
+var select = 1
 
 func Close():
 	hide()
@@ -79,14 +79,16 @@ func _draw() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	if not visible:
+		return
+
 	var mouse_pos = get_local_mouse_position()
 	var mouse_rad = mouse_pos.length()
-	
+
 	if mouse_rad < inner_radius:
 		select = 0
 	else:
 		var mouse_rads = fposmod(mouse_pos.angle() * -1, TAU)
 		select = ceil((mouse_rads / TAU) * (len(options) - 1))
-	
-	
+
 	queue_redraw()
