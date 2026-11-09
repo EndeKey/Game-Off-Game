@@ -4,13 +4,17 @@ var checkpoint : Vector3 = Vector3(0,1,0)
 var SPEED = 5.0
 var JUMP_VELOCITY = 4.5
 @onready var inventory := $"../wheelscene/UI/Selectionwheel"
+@onready var shroomtimer = $ShroomTimer
 @onready var neck := $Neck
 @onready var camera := $Neck/Camera3D
 @onready var hand := $Neck/hand
 @onready var animationplayer := $Neck/hand/AnimationPlayer
 @onready var ishandvisible = false
-var flourjumps : int = 0
+@onready var coyotetimer = $CoyoteTimer
+var shrooms : bool = false
+var shroomdoses : int = 2
 var flourdoses : int = 2
+var lsddoses : int = 2
 
 func _physics_process(delta: float) -> void:
 	hand.visible = ishandvisible
@@ -19,14 +23,10 @@ func _physics_process(delta: float) -> void:
 		velocity += get_gravity() * delta
 
 	# Handle jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+	if Input.is_action_just_pressed("ui_accept") and (is_on_floor() or not coyotetimer.is_stopped()):
 		velocity.y = JUMP_VELOCITY
 		if JUMP_VELOCITY != 4.5:
 			JUMP_VELOCITY = 4.5
-			
-		print(inventory.select)
-	$Control/Label2.text = str(flourdoses)
-	$Control/Label3.text = str(JUMP_VELOCITY)
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
@@ -41,6 +41,7 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("Reset"):
 		global_position = checkpoint
 		flourdoses = 2
+#Using drugs
 	if Input.is_action_just_pressed("Snort"):
 		if inventory.options[inventory.select].name == "Nothing":
 			pass
@@ -49,11 +50,20 @@ func _physics_process(delta: float) -> void:
 			animationplayer.play("snort")
 			flourdoses -= 1
 			JUMP_VELOCITY += 4.5
-		
-		
-	
+		if inventory.options[inventory.select].name == "Shrooms" && shroomdoses > 0 && shrooms == false:
+			shrooms = true
+			shroomtimer.start(10)
+	if Input.is_action_pressed("Snort") and inventory.options[inventory.select].name == "Speedball":
+		SPEED = 10
+	if Input.is_action_just_released("Snort") and inventory.options[inventory.select].name == "Speedball":
+		SPEED = 5
 
+	var was_on_floor = is_on_floor()
 	move_and_slide()
+	if was_on_floor && !is_on_floor():
+		coyotetimer.start()
+
+
 
 
 func _unhandled_input(event):
@@ -69,8 +79,13 @@ func _unhandled_input(event):
 
 
 
+
 func _on_animation_player_animation_finished(snort):
 	ishandvisible = false
 #	$Cocainetimer.start(10)
 #	SPEED = 10
 #	JUMP_VELOCITY = 9
+
+
+func _on_shroom_timer_timeout() -> void:
+	shrooms = false
