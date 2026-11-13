@@ -40,7 +40,7 @@ func _physics_process(delta: float) -> void:
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 	if Input.is_action_just_pressed("Reset"):
 		global_position = checkpoint
-		flourdoses = 2
+		flourdoses = 3
 #Using drugs
 	if Input.is_action_just_pressed("Snort"):
 		if inventory.options[inventory.select].name == "Nothing":

@@ -14,3 +14,4 @@ func _process(delta: float) -> void:
 	elif Input.is_action_just_released("Select"):
 		var tool = $Selectionwheel.Close()
 		$Label.text = "Player equipped:" + tool
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
